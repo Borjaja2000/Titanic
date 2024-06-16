@@ -23,8 +23,8 @@ Esta aplicación de Streamlit realiza un análisis exhaustivo del conjunto de da
 
 1. **Clona el repositorio**:
     ```sh
-    git clone https://github.com/tu-usuario/titanic-data-analysis-app.git
-    cd titanic-data-analysis-app
+    git clone https://github.com/Borjaja2000/Titanic
+    cd Titanic
     ```
 
 2. **Crea un entorno virtual y actívalo**:
@@ -66,8 +66,6 @@ Esta aplicación de Streamlit realiza un análisis exhaustivo del conjunto de da
 ### Interfaz Principal
 ![Interfaz Principal](images/titanic.jpg)
 
-### Opciones de la Barra Lateral
-![Opciones de la Barra Lateral](images/sidebar.jpg)
 
 ## Dependencias
 
@@ -85,10 +83,6 @@ Este proyecto está licenciado bajo la Licencia MIT.
 - [Pandas](https://pandas.pydata.org/)
 - [Plotly](https://plotly.com/python/)
 
-## Contacto
 
-Si tienes alguna pregunta o comentario, no dudes en contactarme en [tu-email@ejemplo.com].
 
----
 
-**Nota**: Reemplaza los marcadores como `tu-usuario`, `tu-email@ejemplo.com`, y `images/sidebar.jpg` con los valores reales según sea necesario.
