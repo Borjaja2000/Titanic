@@ -3,7 +3,8 @@ import pandas as pd
 import plotly.express as px
 
 
-st.title("Aplicacion para el análisis de datos de Titanic")
+st.title("Análisis de datos del Titanic")
+st.image("images/titanic.jpg", width=700,)
 st.sidebar.title("Opciones")
 
 
@@ -113,11 +114,6 @@ fig.update_layout(xaxis_title='Sexo', yaxis_title='Total pasajeros', showlegend=
 fig.update_traces(marker_color=['rgb(158,202,225)', 'rgb(255,87,87)'], marker_line_color='rgb(8,48,107)', marker_line_width=1.5, selector=dict(type='bar'))
 st.plotly_chart(fig)
 
-# Gráfico de barras para mostrar la distribución de la clase de pasajeros
-fig_class = px.histogram(data, x='Pclass', title='Distribución de la Clase por Pasajeros')
-fig_class.update_layout(xaxis_title='Clase de Pasajeros', yaxis_title='Total pasajeros', showlegend=False)
-fig_class.update_traces(marker_color='rgb(158,202,225)', marker_line_color='rgb(8,48,107)', selector=dict(type='bar'))
-st.plotly_chart(fig_class)
 
 # Gráfico de barras para mostrar la distribución de la edad de los pasajeros
 fig_age = px.box(data, x='Age', title='Distribución de la Edad de los Pasajeros')
@@ -130,6 +126,7 @@ fig_scatter = px.scatter(data, x='Age', y='Fare', title='Relación entre Edad, P
 fig_scatter.update_layout(xaxis_title='Edad', yaxis_title='Precio del Billete')
 st.plotly_chart(fig_scatter)
 
+# Gráfico de pastel para mostrar la distribución de la clase de pasajeros
 fig_pie = px.pie(data, names='Pclass', title='Distribución de la Clase de Pasajeros')
 st.plotly_chart(fig_pie)
 
