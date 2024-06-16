@@ -2,18 +2,64 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-
 st.title("Análisis de datos del Titanic")
 st.image("images/titanic.jpg", width=700,)
 st.sidebar.title("Opciones")
 
 
 data = pd.read_csv("titanic.csv")
-st.write("Datos Cargados:")
+text=''
+st.write(f"Datos Cargados:")
 grafico_principal = st.empty()
 grafico_principal.write(data)
 
-st.sidebar.subheader("Configuracion de graficos")
+# Calcular edad maxima y edad minima 
+edad_minima = int(data['Age'].min())
+edad_maxima= int(data['Age'].max())
+
+# Filtro por edad
+enable_age_filter = st.sidebar.checkbox("Habilitar filtro por edad")
+age_config = st.sidebar.slider('Edad Mínima', min_value=edad_minima, max_value=edad_maxima, value=edad_minima)
+if enable_age_filter:
+    filtered_data = data[data['Age'].fillna(-1).astype(int) == age_config]
+    st.write(f"Hay {filtered_data.shape[0]} pasajeros con {age_config} años")
+    grafico_principal.write(filtered_data)
+
+#Calcula mediana de la edad
+mediana = int(data['Age'].median())
+st.sidebar.write(f"Mediana de las edades {mediana} años")
+
+# Filtro por mediana de edad
+enable_median_filter = st.sidebar.checkbox("Habilitar filtro por mediana de edad")
+filtro_mediana = st.sidebar.radio('Filtrar por mediana de edad', ('Todos', 'Menores que la mediana', 'Mayores que la mediana'))
+if enable_median_filter:
+   if filtro_mediana == 'Menores que la mediana':
+      menor_mediana = data[data['Age'] < mediana]
+      grafico_principal.write(menor_mediana)
+      st.write(f"Hay {menor_mediana.shape[0]} personas menores que {mediana} años")
+   elif filtro_mediana == 'Mayores que la mediana':
+      mayor_mediana = data[data['Age'] > mediana]
+      grafico_principal.write(mayor_mediana)
+      st.write(f"Hay {mayor_mediana.shape[0]} personas mayores que {mediana} años")
+   else:
+      grafico_principal.write(data)
+      st.write(f"Hay {data.shape[0]} personas en total")
+
+# Filtro por precio billete
+enable_fare_filter = st.sidebar.checkbox("Habilitar filtro por precio del billete")
+filtro_billete = st.sidebar.radio('Filtrar por precio Billete', ('Todos', 'Precio mas caro', 'Precio mas barato'))
+precio_minimo = data['Fare'].min()
+precio_maximo = data['Fare'].max()
+if enable_fare_filter:
+   if filtro_billete == "Precio mas caro":
+      grafico_principal.write(data[data['Fare'] == precio_maximo])
+      st.write(f"El precio mas caro es {precio_maximo.round(2)} libras")
+   elif filtro_billete == "Precio mas barato":
+      grafico_principal.write(data[data['Fare'] == precio_minimo])
+      st.write(f"El precio mas barato es {precio_minimo.round(2)} libras")
+   else:
+      grafico_principal.write(data)
+
 # Grafica de datos y porcentaje de valores nulos 
 view_percentage = st.checkbox('Mostrar porcentaje de valores nulos', value=False)
 
@@ -30,50 +76,8 @@ else:
     null = data.isnull().sum().reset_index()
     null.columns = ['Columnas', 'Cantidad']
     y_data = 'Cantidad'
-# Crear un gráfico de barras interactivo
 fig = px.bar(null, x='Columnas', y=y_data, title=title, labels={y_data: y_label})
-
-# Mostrar el gráfico en Streamlit
 st.plotly_chart(fig)
-
-# Calcular edad maxima y edad minima 
-edad_minima = int(data['Age'].min())
-edad_maxima= int(data['Age'].max())
-
-# Filtro por edad
-enable_age_filter = st.sidebar.checkbox("Habilitar filtro por edad")
-age_config = st.sidebar.slider('Edad Mínima', min_value=edad_minima, max_value=edad_maxima, value=edad_minima)
-if enable_age_filter:
-    filtered_data = data[data['Age'].fillna(-1).astype(int) == age_config]
-    grafico_principal.write(filtered_data)
-
-#Calcula mediana de la edad
-mediana = int(data['Age'].median())
-st.sidebar.write(f"Mediana de las edades {mediana} años")
-
-# Filtro por mediana de edad
-enable_median_filter = st.sidebar.checkbox("Habilitar filtro por mediana de edad")
-filtro_mediana = st.sidebar.radio('Filtrar por mediana de edad', ('Todos', 'Menores que la mediana', 'Mayores que la mediana'))
-if enable_median_filter:
-   if filtro_mediana == 'Menores que la mediana':
-      grafico_principal.write(data[data['Age'] < mediana])
-   elif filtro_mediana == 'Mayores que la mediana':
-      grafico_principal.write(data[data['Age'] > mediana])
-   else:
-      grafico_principal.write(data)
-
-# Filtro por precio billete
-enable_fare_filter = st.sidebar.checkbox("Habilitar filtro por precio del billete")
-filtro_billete = st.sidebar.radio('Filtrar por precio Billete', ('Todos', 'Precio mas caro', 'Precio mas barato'))
-precio_minimo = data['Fare'].min()
-precio_maximo = data['Fare'].max()
-if enable_fare_filter:
-   if filtro_billete == "Precio mas caro":
-      grafico_principal.write(data[data['Fare'] == precio_maximo])
-   elif filtro_billete == "Precio mas barato":
-      grafico_principal.write(data[data['Fare'] == precio_minimo])
-   else:
-      grafico_principal.write(data)
 
 
 # Gráfica distribución de precios
