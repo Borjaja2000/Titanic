@@ -4,11 +4,10 @@ import plotly.express as px
 
 st.title("Análisis de datos del Titanic")
 st.image("images/titanic.jpg", width=700,)
-st.sidebar.title("Opciones")
+st.sidebar.title("Opciones de la tabla")
 
 
 data = pd.read_csv("titanic.csv")
-text=''
 st.write(f"Datos Cargados:")
 grafico_principal = st.empty()
 grafico_principal.write(data)
@@ -60,9 +59,13 @@ if enable_fare_filter:
    else:
       grafico_principal.write(data)
 
-# Grafica de datos y porcentaje de valores nulos 
-view_percentage = st.checkbox('Mostrar porcentaje de valores nulos', value=False)
+#Configuracion de las graficas
+st.sidebar.title("Configuración de las gráficas")
+view_percentage = st.sidebar.checkbox('Mostrar porcentaje de valores nulos', value=False)
+emabarked_survived = st.sidebar.checkbox('Mostrar sobrevivientes embarque', value=False, key="emabarked_survived")
+sex_survived = st.sidebar.checkbox('Mostrar sobrevivientes por sexo', value=False, key="sex_survived")
 
+# Grafica de datos y porcentaje de valores nulos 
 if view_percentage: 
     y_label = "Porcentaje de valores nulos (%)"
     title = "Porcentaje de Valores Nulos por Columna"
@@ -79,7 +82,6 @@ else:
 fig = px.bar(null, x='Columnas', y=y_data, title=title, labels={y_data: y_label})
 st.plotly_chart(fig)
 
-
 # Gráfica distribución de precios
 st.write("Distribución de Precios de Billetes")
 fig_fare = px.histogram(data, x='Fare', nbins=30, title='Distribución de Precios de Billetes', range_x=[0, precio_maximo])
@@ -90,7 +92,6 @@ fig_fare.update_layout(xaxis_title='Precio del Billete', yaxis_title='Total pasa
 st.plotly_chart(fig_fare)
 
 # Gráfico de barras para mostrar la distribución de los lugares de embarque
-emabarked_survived = st.checkbox('Mostrar sobrevivientes por sexo', value=False, key="emabarked_survived")
 if emabarked_survived:
    color = 'Survived'
    title = 'Distribución de la Supervivencia por Puerto de Embarque'
@@ -105,7 +106,6 @@ fig_embarked.update_traces(marker_color='rgb(158,202,225)', marker_line_color='r
 st.plotly_chart(fig_embarked)
 
 # Gráfico de barras para mostrar la distribución de sexos en las personas embarcadas
-sex_survived = st.checkbox('Mostrar sobrevivientes por sexo', value=False, key="sex_survived")
 if sex_survived:
    color = 'Survived'
    title = 'Distribución de la Supervivencia por Género'
