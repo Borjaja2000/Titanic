@@ -60,7 +60,7 @@ if enable_fare_filter:
       grafico_principal.write(data)
 
 #Configuracion de las graficas
-st.sidebar.title("Configuración de las gráficas")
+st.sidebar.title("Configuración gráficas")
 view_percentage = st.sidebar.checkbox('Mostrar porcentaje de valores nulos', value=False)
 emabarked_survived = st.sidebar.checkbox('Mostrar sobrevivientes embarque', value=False, key="emabarked_survived")
 sex_survived = st.sidebar.checkbox('Mostrar sobrevivientes por sexo', value=False, key="sex_survived")
