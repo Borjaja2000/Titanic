@@ -77,7 +77,7 @@ Esta aplicación de Streamlit realiza un análisis exhaustivo del conjunto de da
 
 Este proyecto está licenciado bajo la Licencia MIT.
 
-## Agradecimientos
+## Librerias utilizadas
 
 - [Streamlit](https://streamlit.io/)
 - [Pandas](https://pandas.pydata.org/)
