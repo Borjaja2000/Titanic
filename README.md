@@ -67,21 +67,14 @@ Esta aplicación de Streamlit realiza un análisis exhaustivo del conjunto de da
 ![Interfaz Principal](images/titanic.jpg)
 
 
-## Dependencias
-
-- `streamlit`
-- `pandas`
-- `plotly`
-
-## Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT.
-
 ## Librerias utilizadas
 
 - [Streamlit](https://streamlit.io/)
 - [Pandas](https://pandas.pydata.org/)
 - [Plotly](https://plotly.com/python/)
+
+
+
 
 
 
